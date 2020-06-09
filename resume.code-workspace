@@ -1,0 +1,17 @@
+{
+    "folders": [
+        {
+            "name": "Resume presentation",
+            "path": "resume-web"
+        },
+        {
+            "name": "Resume api",
+            "path": "resume-api"
+        }
+    ],
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": []
+    },
+    "settings": {"files.autoSave": "afterDelay"}
+}

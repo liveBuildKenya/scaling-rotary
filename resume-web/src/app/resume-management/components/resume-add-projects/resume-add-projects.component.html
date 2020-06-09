@@ -1,0 +1,16 @@
+<form [formGroup]="addProjectForm" (ngSubmit)="onAddProjectFormSubmit()">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input formControlName="name" id="name" type="text"/>
+  </div>
+  <div class="form-group">
+    <label for="url">URL</label>
+    <input formControlName="url" id="url" type="url"/>
+  </div>
+  <quill-editor formControlName="description"></quill-editor>
+  <div class="form-group">
+    <label for="ongoing">Ongoing</label>
+    <input formControlName="ongoing" id="ongoing" type="checkbox"/>
+  </div>
+  <button type="submit" [disabled]="!addProjectForm.valid">Save</button>
+</form>

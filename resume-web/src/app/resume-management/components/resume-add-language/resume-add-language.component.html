@@ -1,0 +1,11 @@
+<form [formGroup]="addLanguageForm" (ngSubmit)="onAddLanguageFormSubmit()">
+  <div class="form-group">
+    <label for="language">Language</label>
+    <input formControlName="language" id="language" type="text"/>
+  </div>
+  <div class="form-group">
+    <label for="level">Level</label>
+    <input formControlName="level" id="level" type="range" min="0" max="5"/>
+  </div>
+  <button type="submit" [disabled]="!addLanguageForm.valid">Save</button>
+</form>

@@ -1,0 +1,7 @@
+<form [formGroup]="addSkillForm" (ngSubmit)="onAddSkillFormSubmit()">
+  <div class="form-group">
+    <label for="skill">Skill</label>
+    <input formControlName="skill" id="skill" type="text"/>
+  </div>
+  <button type="submit" [disabled]="!addSkillForm.valid">Save</button>
+</form>

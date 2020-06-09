@@ -1,0 +1,59 @@
+<div id="personal-details">
+  <h1>{{user?.name}}</h1>
+  <div id="personal-contacts">
+    <a href="mailto:{{user?.email}}" title="Mail me: {{user?.email}}">
+      <fa-icon [icon]="faEnvelope"></fa-icon>
+    </a>
+    <span *ngFor="let contact of user?.contacts">
+      <a *ngIf="contact.contactType === 'phone'" href="tel:contact.contactValue"><fa-icon [icon]="faPhone"></fa-icon></a>
+      <a *ngIf="contact.contactType === 'facebook'" href="contact.contactValue" target="_blank"><fa-icon [icon]="faFacebookF"></fa-icon></a>
+      <a *ngIf="contact.contactType === 'twitter'" href="contact.contactValue" target="_blank"><fa-icon [icon]="faTwitter"></fa-icon></a>
+      <a *ngIf="contact.contactType === 'linkedIn'" href="contact.contactValue" target="_blank"><fa-icon [icon]="faLinkedIn"></fa-icon></a>
+    </span>
+    <button class="primary-button" routerLink='contact/add'> Add Contact</button>
+  </div>
+</div>
+<div id="introduction">
+  <h2>Introduction</h2>
+  <video controls src="{{introductionVideoUrl}}">
+  </video>
+  <h3>Upload video</h3>
+  <app-file-upload [resumeSection]="resumeSections.INTRODUCTION" [uploadType]="uploadType.VIDEO" [userIdentifier]="user?._id"></app-file-upload>
+  <h3>Languages</h3>
+  <a routerLink="language/add">Add Language</a>
+  <span *ngFor="let language of user?.introduction.languages">{{language.name}}</span>
+  <p>{{user?.introduction.valueStatement}}</p>
+  <a routerLink="statement/edit">Edit Value Statement</a>
+</div>
+<div id="skills">
+  <h2>Skills</h2>
+  <a routerLink='skill/add'>Add Skill</a>
+  <span *ngFor="let skill of user?.skills">{{skill.name}}</span>
+</div>
+<div id="experience">
+  <h2>Experience</h2>
+  <a routerLink='experience/add'>Add Experience</a>
+  <div *ngFor="let experience of user?.experience">
+    <span>{{experience.from}}</span> - <span *ngIf="experience.currentWorkPlace">Current</span> <span *ngIf="experience.to">{{experience.to}}</span> : <span>{{experience.companyName}}</span>
+    <p>{{experience.title}}</p>
+    <p [innerHTML]="experience.description"></p>
+  </div>
+</div>
+<div id="education">
+  <h2>Education</h2>
+  <a routerLink='education/add'>Add Education</a>
+  <div *ngFor="let education of user?.education">
+    <span>{{education.from}}</span> - <span>{{education.to}}</span> : <span>{{education.school}}</span>
+    <p>{{education.degree}}</p>
+  </div>
+</div>
+<div id="projects">
+  <h2>Projects</h2>
+  <a routerLink='project/add'>Add Project</a>
+  <div *ngFor="let project of user?.projects">
+    <a target="_blank" href="{{project.url}}">{{project.name}}</a>
+    <p [innerHTML]="project.description"></p>
+  </div>
+</div>
+<router-outlet></router-outlet>
+

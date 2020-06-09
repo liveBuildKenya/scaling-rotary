@@ -1,0 +1,6 @@
+<div *ngIf="uploadType == 'VIDEO'">
+  <input type="file" name="uploadData" (change)="onFileSelect($event)" accept='video/*' />
+</div>
+<div *ngIf="uploadType == 'POSTER'">
+  <input type="file" name="uploadData" (change)="onFileSelect($event)" accept='image/*' />
+</div>

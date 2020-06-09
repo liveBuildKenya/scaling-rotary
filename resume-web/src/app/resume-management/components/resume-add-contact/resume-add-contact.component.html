@@ -1,0 +1,22 @@
+<div class="form-group">
+  <label for="contact-type">Contact Type</label>
+  <select id="contactType" [(ngModel)]="contact.type" required>
+    <option *ngFor="let type of contactTypes" [value]='type'>{{type}}</option>
+  </select>
+</div>
+<div *ngIf="contact.type === 'phone'" class="form-group">
+  <input type="tel" ng2TelInput (hasError)="hasError($event)" (ng2TelOutput)="getNumber($event)"/>
+</div>
+<div *ngIf="contact.type === 'facebook'" class="form-group">
+  <label for="contactValue">Facebook</label>
+  <input id="contactValue" [(ngModel)]="contact.value" type="url" required />
+</div>
+<div *ngIf="contact.type === 'twitter'" class="form-group">
+  <label for="contactValue">Twitter</label>
+  <input id="contactValue" [(ngModel)]="contact.value" type="url" required />
+</div>
+<div *ngIf="contact.type === 'linkedIn'" class="form-group">
+  <label for="contactValue">Linkedin</label>
+  <input id="contactValue" [(ngModel)]="contact.value" type="url" required />
+</div>
+<button (click)="addContact()"> Save </button>
