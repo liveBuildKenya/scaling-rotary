@@ -45,3 +45,10 @@ form {
     width: 100%;
   }
 }
+
+.save-button {
+  position: fixed;
+  bottom: 0;
+  padding: .6rem 1rem;
+  z-index: 99999;
+}

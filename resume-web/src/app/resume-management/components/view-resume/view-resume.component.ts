@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { UserService } from 'src/app/user-management/services/user.service';
 import { UserModel } from 'src/app/shared/models/user.model';
-import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faPhone, faPenFancy, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookF, faTwitter, faLinkedin} from '@fortawesome/free-brands-svg-icons';
 import { ResumeSection } from 'src/app/shared/enums/resume-section.enum';
 import { UploadType } from 'src/app/shared/enums/upload-types.enum';
@@ -22,12 +22,16 @@ export class ViewResumeComponent implements OnInit {
   faFacebookF = faFacebookF;
   faTwitter = faTwitter;
   faLinkedIn = faLinkedin;
+  faPenFancy = faPenFancy;
+  faCheck = faCheck;
 
   resumeSections = ResumeSection;
   uploadType = UploadType;
   environment = environment;
 
   introductionVideoUrl: string;
+
+  edit = false;
 
 
   constructor(private route: ActivatedRoute,
@@ -56,5 +60,9 @@ export class ViewResumeComponent implements OnInit {
         );
       }
     });
+  }
+
+  toggleEdit() {
+    this.edit = !this.edit;
   }
 }

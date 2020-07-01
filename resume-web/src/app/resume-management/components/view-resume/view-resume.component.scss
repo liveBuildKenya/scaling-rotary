@@ -42,6 +42,7 @@
 }
 
 #introduction-container{
+  padding-top: 6rem;
   #introduction-wrapper {
     display: flex;
     flex-direction: row;
@@ -93,5 +94,27 @@
       margin-top: .2rem;
       margin-right: .2rem;
     }
+  }
+}
+
+#experience {
+  #experience-container{
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
+
+#projects{
+  padding-bottom: 20rem;
+}
+
+#edit-action-wrapper {
+  position: fixed;
+  right: .4rem;
+  bottom: 8rem;
+  z-index: 999999;
+  button{
+    border-radius: 50%;
+    padding: 2rem;
   }
 }
