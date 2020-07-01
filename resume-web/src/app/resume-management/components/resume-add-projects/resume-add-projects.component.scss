@@ -1,0 +1,5 @@
+@import '../../../../mixin.scss';
+
+:host {
+  @include hostForm()
+}

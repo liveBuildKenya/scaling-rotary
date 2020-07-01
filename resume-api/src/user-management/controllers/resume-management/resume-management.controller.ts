@@ -1,17 +1,17 @@
 import { Controller, Post, Body, Res, UseInterceptors, UploadedFile, Get, HttpStatus, Param, HttpException } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UserManagementService } from 'src/user-management/services/user-management/user-management.service';
-import { AddUserContactViewModel } from 'src/user-management/models/add-user-contact.view-model';
 import { ResultViewModel } from 'src/shared/models/result.view-model';
 import { Response } from 'express';
 import { UploadDetailsViewModel } from 'src/user-management/models/upload-details.view-model';
 import { FilesService } from 'src/user-management/services/file/files.service';
-import { AddUserLanguageViewModel } from 'src/user-management/models/add-user-langauge.view-model';
 import { EditValueStatementViewModel } from 'src/user-management/models/edit-value-statement.view-model';
 import { AddSkillViewModel } from 'src/user-management/models/add-skill.view-model';
 import { AddEducationViewModel } from 'src/user-management/models/add-education.view-model';
 import { AddExperienceViewModel } from 'src/user-management/models/add-experience.view-model';
 import { AddProjectViewModel } from 'src/user-management/models/add-project.view-model';
+import { AddContactViewModel } from 'src/user-management/models/add-contact-view.model';
+import { AddLanguageViewModel } from 'src/user-management/models/add-langauge-view.model';
 
 @Controller('resume')
 export class ResumeManagementController {
@@ -19,14 +19,14 @@ export class ResumeManagementController {
                 private filesService: FilesService) {}
 
     @Post('contact/add')
-    async addUserContact(@Body() addUserContactViewModel: AddUserContactViewModel, @Res() res: Response) {
-        const result: ResultViewModel = await this.userManagementService.addUserContact(addUserContactViewModel);
+    async addUserContact(@Body() addContactViewModel: AddContactViewModel, @Res() res: Response) {
+        const result: ResultViewModel = await this.userManagementService.addUserContact(addContactViewModel);
         res.status(result.status).json(result.body);
     }
 
     @Post('language/add')
-    async addUserLanguage(@Body() addUserLanguageViewModel: AddUserLanguageViewModel, @Res() res: Response) {
-        const result: ResultViewModel = await this.userManagementService.addUserLanguage(addUserLanguageViewModel);
+    async addUserLanguage(@Body() addLanguageViewModel: AddLanguageViewModel, @Res() res: Response) {
+        const result: ResultViewModel = await this.userManagementService.addUserLanguage(addLanguageViewModel);
         res.status(result.status).json(result.body);
     }
 

@@ -39,8 +39,8 @@ export class ViewResumeComponent implements OnInit {
     .subscribe(
       (response: any) => {
         this.user = response.result;
-        this.introductionVideoUrl = environment.api_url + `resume/video/${this.user.introduction.videoId}`;
         console.log(this.user);
+        this.introductionVideoUrl = environment.api_url + `resume/video/${this.user.introduction?.videoId}`;
       }
     );
 
@@ -51,8 +51,7 @@ export class ViewResumeComponent implements OnInit {
         .subscribe(
           (response: any) => {
             this.user = response.result;
-            this.introductionVideoUrl = environment.api_url + `resume/video/${this.user.introduction.videoId}`;
-            console.log(this.user);
+            this.introductionVideoUrl = environment.api_url + `resume/video/${this.user.introduction?.videoId}`;
           }
         );
       }

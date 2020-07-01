@@ -38,23 +38,23 @@ export class FileUploadComponent implements OnInit {
           video.onloadedmetadata = () => {
             window.URL.revokeObjectURL(video.src);
             duration = video.duration;
-          if (duration > 7) {
-            console.log('Do not upload the video');
-          } else {
-            console.log('Uploading video');
-            this.uploadForm.get('uploadData').setValue(file);
+            if (duration > 7) {
+              console.log('Do not upload the video');
+            } else {
+              console.log('Uploading video');
+              this.uploadForm.get('uploadData').setValue(file);
 
-            const formData = new FormData();
-            formData.append('file', this.uploadForm.get('uploadData').value);
-            formData.append('section', this.resumeSection);
-            formData.append('uploadType', this.uploadType);
-            formData.append('userId', this.userIdentifier);
+              const formData = new FormData();
+              formData.append('file', this.uploadForm.get('uploadData').value);
+              formData.append('section', this.resumeSection);
+              formData.append('uploadType', this.uploadType);
+              formData.append('userId', this.userIdentifier);
 
-            this.resumeService.uploadVideo(formData).subscribe(
-              (response: any) => {
-                this.router.navigate([`resume/${response.result._id}`]);
-              }
-            );
+              this.resumeService.uploadVideo(formData).subscribe(
+                (response: any) => {
+                  this.router.navigate([`resume/${response.result._id}`]);
+                }
+              );
           }
         };
       }

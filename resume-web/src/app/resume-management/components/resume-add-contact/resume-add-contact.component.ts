@@ -19,7 +19,7 @@ export class ResumeAddContactComponent implements OnInit {
     'linkedIn',
   ];
 
-  contact: UserContactModel = { type: 'phone', value: '' };
+  contact: UserContactModel= { type: 'phone', value: '' }
 
   constructor(private route: ActivatedRoute,
               private router: Router,

@@ -1,31 +1,23 @@
 import * as mongoose from 'mongoose';
+import { BaseModel } from 'src/shared/models/base.model';
 
 /**
  * Represents an education schema
  */
 export const EducationSchema = new mongoose.Schema({
-    /**
-     * Gets or sets the school
-     */
     school: String,
-
-    /**
-     * Gets or sets the field of study
-     */
     fieldOfStudy: String,
-
-    /**
-     * Gets or sets the degree
-     */
     degree: String,
-
-    /**
-     * Gets or sets the year from
-     */
     from: String,
+    to: String,
+    dateCreated: { type: Date },
+    dateUpdated: { type: Date, default: Date.now }
+});
 
-    /**
-     * Gets or sets the year to
-     */
-    to: String
-})
+export interface EducationModel extends BaseModel {
+    school: string;
+    fieldOfStudy: string;
+    degree: string;
+    from: string;
+    to: string;
+}

@@ -13,19 +13,19 @@ export class FilesService {
     }
 
     async readStream(id: string): Promise<GridFSBucketReadStream> {
-        return await this.fileModel.readFileStream(id);
+      return await this.fileModel.readFileStream(id);
     }
 
     async findInfo(id: string) {
-        const result = await this.fileModel
-          .findById(id).catch( err => {throw new HttpException('File not found', HttpStatus.NOT_FOUND)} )
-          .then(result => result)
-        return{
-          filename: result.filename,
-          length: result.length,
-          chunkSize: result.chunkSize,
-          md5: result.md5,
-          contentType: result.contentType      
-        }
+      const result = await this.fileModel
+        .findById(id).catch( err => {throw new HttpException('File not found', HttpStatus.NOT_FOUND)} )
+        .then(result => result)
+      return{
+        filename: result.filename,
+        length: result.length,
+        chunkSize: result.chunkSize,
+        md5: result.md5,
+        contentType: result.contentType      
       }
+    }
 }

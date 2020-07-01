@@ -1,0 +1,10 @@
+@mixin hostForm {
+  position: fixed;
+  background-color: #fff;
+  width: 100%;
+  height: 100vh;
+  z-index: 99999;
+  top: 0;
+  padding-top: 8rem;
+  overflow-y: auto;
+}

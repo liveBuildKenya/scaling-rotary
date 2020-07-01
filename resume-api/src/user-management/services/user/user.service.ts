@@ -44,18 +44,6 @@ export class UserService {
     }
 
     async getUserById(id: string) {
-        const user: any = await this.userModel.findById(id);
-        return {
-            _id: user._id,
-            name: user.name,
-            contacts: user.contacts,
-            introduction: user.introduction,
-            experience: user.experience,
-            skills: user.skills,
-            education: user.education,
-            projects: user.projects,
-            dateCreated: user.dateCreated,
-            dateUpdated: user.dateUpdated
-        };
+        return await this.userModel.findById(id);
     }
 }

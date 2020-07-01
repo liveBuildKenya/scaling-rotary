@@ -2,6 +2,7 @@
  * Represents an add project view model
  */
 export interface AddProjectViewModel {
+    dateCreated: Date;
 
     /**
      * Gets or sets the user identifier

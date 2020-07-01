@@ -5,20 +5,34 @@ import { JwtService } from '@nestjs/jwt';
 
 import { UserService } from '../user/user.service';
 import { UserViewModel } from 'src/user-management/models/user.view-model';
-import { AddUserContactViewModel } from 'src/user-management/models/add-user-contact.view-model';
 import { UploadDetailsViewModel } from 'src/user-management/models/upload-details.view-model';
 import { ResumeSection } from 'src/shared/enums/resume-section.enum';
-import { AddUserLanguageViewModel } from 'src/user-management/models/add-user-langauge.view-model';
+import { AddLanguageViewModel } from 'src/user-management/models/add-langauge-view.model';
 import { EditValueStatementViewModel } from 'src/user-management/models/edit-value-statement.view-model';
 import { AddSkillViewModel } from 'src/user-management/models/add-skill.view-model';
 import { AddEducationViewModel } from 'src/user-management/models/add-education.view-model';
 import { AddExperienceViewModel } from 'src/user-management/models/add-experience.view-model';
 import { AddProjectViewModel } from 'src/user-management/models/add-project.view-model';
+import { AddContactViewModel } from 'src/user-management/models/add-contact-view.model';
+import { ContactService } from '../contact/contact.service';
+import { LanguageService } from '../language/language.service';
+import { SkillService } from '../skill/skill.service';
+import { EducationService } from '../education/education.service';
+import { ExperienceService } from '../experience/experience.service';
+import { ProjectService } from '../project/project.service';
+import { IntroductionService } from '../introduction/introduction.service';
 
 @Injectable()
 export class UserManagementService {
 
     constructor(private userService: UserService,
+                private introductionService: IntroductionService,
+                private contactService: ContactService,
+                private languageService: LanguageService,
+                private skillService: SkillService,
+                private educationService: EducationService,
+                private experienceService: ExperienceService,
+                private projectService: ProjectService,
                 private jwtService: JwtService) {}
     /**
      * Creates a new user
@@ -125,44 +139,41 @@ export class UserManagementService {
 
     /**
      * Adds a user's contact
-     * @param addUserContactViewModel Add user contact view model
+     * @param addContactViewModel Add user contact view model
      */
-    async addUserContact(addUserContactViewModel: AddUserContactViewModel) {
-        if (!addUserContactViewModel.userId) {
+    async addUserContact(addContactViewModel: AddContactViewModel) {
+        if (!addContactViewModel.userId) {
             return {
                 status: HttpStatus.BAD_REQUEST,
                 body: {
                     message: 'userId not defined',
-                    result: addUserContactViewModel
+                    result: addContactViewModel
                 }
             }
         }
 
-        if (!addUserContactViewModel.contactType) {
+        if (!addContactViewModel.contactType) {
             return {
                 status: HttpStatus.BAD_REQUEST,
                 body: {
                     message: 'contactType not defined',
-                    result: addUserContactViewModel
+                    result: addContactViewModel
                 }
             }
         }
 
-        if (!addUserContactViewModel.contactValue) {
+        if (!addContactViewModel.contactValue) {
             return {
                 status: HttpStatus.BAD_REQUEST,
                 body: {
                     message: 'contactValue not defined',
-                    result: addUserContactViewModel
+                    result: addContactViewModel
                 }
             }
         }
 
-        const user = await this.userService.getUserById(addUserContactViewModel.userId);
-        const newContact = {
-            contactType: addUserContactViewModel.contactType,
-            contactValue: addUserContactViewModel.contactValue
-        }
+        const user = await this.userService.getUserById(addContactViewModel.userId);
+        const newContact = await this.contactService.createContact(addContactViewModel);
         user.contacts = [...user.contacts, newContact];
 
         await this.userService.update(user);
@@ -171,7 +182,7 @@ export class UserManagementService {
             status: HttpStatus.OK,
             body: {
                 message: 'Contact added successfully',
-                result: { user: (await this.userService.getUserById(addUserContactViewModel.userId)) }
+                result: { user: (await this.userService.getUserById(addContactViewModel.userId)) }
             }
         }
     }
@@ -181,12 +192,16 @@ export class UserManagementService {
         const user = await this.userService.getUserById(uploadDetails.userId);
 
         if (uploadDetails.section == ResumeSection.INTRODUCTION) {
-            user.introduction.videoId = fileId;
+            const newVideo = await this.introductionService.createIntroduction({
+                videoId: fileId,
+                posterId: null,
+                dateCreated: new Date(Date.now())
+            });
+
+            user.introduction = newVideo
         }
 
         await this.userService.update(user);
-
-
 
         return {
             status: HttpStatus.OK,
@@ -217,44 +232,41 @@ export class UserManagementService {
         }
     }
 
-    async addUserLanguage(addUserLanguageViewModel: AddUserLanguageViewModel) {
-        if (!addUserLanguageViewModel.userId) {
+    async addUserLanguage(addLanguageViewModel: AddLanguageViewModel) {
+        if (!addLanguageViewModel.userId) {
             return {
                 status: HttpStatus.BAD_REQUEST,
                 body: {
                     message: 'userId not defined',
-                    result: addUserLanguageViewModel
+                    result: addLanguageViewModel
                 }
             };
         }
 
-        if (!addUserLanguageViewModel.language) {
+        if (!addLanguageViewModel.language) {
             return {
                 status: HttpStatus.BAD_REQUEST,
                 body: {
                     message: 'language not defined',
-                    result: addUserLanguageViewModel
+                    result: addLanguageViewModel
                 }
             };
         }
 
-        if (!addUserLanguageViewModel.level) {
+        if (!addLanguageViewModel.level) {
             return {
                 status: HttpStatus.BAD_REQUEST,
                 body: {
                     message: 'level not defined',
-                    result: addUserLanguageViewModel
+                    result: addLanguageViewModel
                 }
             };
         }
 
-        const user = await this.userService.getUserById(addUserLanguageViewModel.userId);
-        const newLanguage = {
-            name: addUserLanguageViewModel.language,
-            level: addUserLanguageViewModel.level
-        };
+        const user = await this.userService.getUserById(addLanguageViewModel.userId);
+        const newLanguage = await this.languageService.createLanguage(addLanguageViewModel);
 
-        user.introduction.languages.push(newLanguage);
+        user.languages.push(newLanguage);
 
         await this.userService.update(user);
 
@@ -262,7 +274,7 @@ export class UserManagementService {
             status: HttpStatus.OK,
             body: {
                 message: 'User language added',
-                result: (await this.userService.getUserById(addUserLanguageViewModel.userId))
+                result: (await this.userService.getUserById(addLanguageViewModel.userId))
             }
         };
     }
@@ -289,7 +301,7 @@ export class UserManagementService {
         }
 
         const user = await this.userService.getUserById(editValueStatementViewModel.userId);
-        user.introduction.valueStatement = editValueStatementViewModel.valueStatement;
+        user.valueStatement = editValueStatementViewModel.valueStatement;
         
         await this.userService.update(user);
 
@@ -324,9 +336,7 @@ export class UserManagementService {
         }
 
         const user = await this.userService.getUserById(addSkillViewModel.userId);
-        const newSkill = {
-            name: addSkillViewModel.skill
-        }
+        const newSkill = await this.skillService.createSkill(addSkillViewModel);
         user.skills.push(newSkill);
 
         await this.userService.update(user);
@@ -392,12 +402,7 @@ export class UserManagementService {
         }
         
         const user = await this.userService.getUserById(addEducationViewModel.userId);
-        const newEducation = {
-            school: addEducationViewModel.school,
-            degree: addEducationViewModel.degree,
-            from: addEducationViewModel.from,
-            to: addEducationViewModel.to
-        }
+        const newEducation = await this.educationService.createEducation(addEducationViewModel);
 
         user.education.push(newEducation);
         
@@ -484,16 +489,7 @@ export class UserManagementService {
         }
 
         const user = await this.userService.getUserById(addExperienceViewModel.userId);
-        const newExperience = {
-            companyName: addExperienceViewModel.companyName,
-            title: addExperienceViewModel.title,
-            industry: addExperienceViewModel.industry,
-            country: addExperienceViewModel.country,
-            from: addExperienceViewModel.from,
-            to: addExperienceViewModel.to,
-            description: addExperienceViewModel.description,
-            currentWorkPlace: addExperienceViewModel.current
-        };
+        const newExperience = await this.experienceService.createExperience(addExperienceViewModel);
 
         user.experience.push(newExperience);
 
@@ -550,12 +546,7 @@ export class UserManagementService {
         }
 
         const user = await this.userService.getUserById(addProjectViewModel.userId);
-        const newProject = {
-            name: addProjectViewModel.name,
-            url: addProjectViewModel.url,
-            description: addProjectViewModel.description,
-            ongoing: addProjectViewModel.ongoing
-        };
+        const newProject = await this.projectService.createProject(addProjectViewModel);
 
         user.projects.push(newProject);
 

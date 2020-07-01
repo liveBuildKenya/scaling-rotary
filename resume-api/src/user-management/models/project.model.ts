@@ -1,31 +1,23 @@
 import * as mongoose from 'mongoose';
+import { BaseModel } from 'src/shared/models/base.model';
 
 /**
  * Represents a project
  */
 export const ProjectSchema = new mongoose.Schema({
-    /**
-     * Gets or sets the name
-     */
     name: String,
-
-    /**
-     * Gets or sets the date
-     */
     date: Date,
-
-    /**
-     * Gets or sets the url
-     */
     url: String,
-
-    /**
-     * Gets or sets the description
-     */
     description: String,
+    ongoing: Boolean,
+    dateCreated: { type: Date },
+    dateUpdated: { type: Date, default: Date.now }
+});
 
-    /**
-     * Gets or sets a value indicating whether the projects is ongoing
-     */
-    ongoing: Boolean
-})
+export interface ProjectModel extends BaseModel {
+    name: string;
+    date: Date;
+    url: string;
+    description: string;
+    ongoing: boolean;
+}

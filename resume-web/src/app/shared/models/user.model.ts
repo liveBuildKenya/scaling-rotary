@@ -2,50 +2,25 @@
  * Represents user model
  */
 export interface UserModel {
-
-  /**
-   * Gets or sets the id
-   */
   _id: string;
-
-  /**
-   * Gets or sets the name
-   */
   name: string;
-
-  /**
-   * Gets or sets the email
-   */
   email: string;
-
-  /**
-   * Gets or sets the contacts
-   */
-  contacts: [{ contactType: string, contactValue: string}];
-
-  /**
-   * Gets or sets the introduction
-   */
-  introduction: { videoId: string, posterId: string, valueStatement: string, languages: UserLanguage[] };
-
-  /**
-   * Gets or sets the skills
-   */
+  contacts: [{
+    contactType: string,
+    contactValue: string,
+    dateCreated: Date,
+    dateUpdated: Date,
+    _id: string
+  }];
+  valueStatement: string;
+  languages: UserLanguage[];
+  introduction: {
+    videoId: string,
+    posterId: string,
+  };
   skills: Array<UserSkill>;
-
-  /**
-   * Gets or sets the experience
-   */
   experience: Array<UserExperience>;
-
-  /**
-   * Gets or sets the education
-   */
   education: Array<UserEducation>;
-
-  /**
-   * Gets or sets the projects
-   */
   projects: Array<UserProject>;
 }
 
@@ -62,7 +37,7 @@ export interface UserLanguage {
   /**
    * Gets or sets the language name
    */
-  name: string;
+  language: string;
 
   /**
    * Gets or sets the level
@@ -74,16 +49,8 @@ export interface UserLanguage {
  * Represents a user string
  */
 export interface UserSkill {
-
-  /**
-   * Gets or sets the identifier
-   */
   _id: string;
-
-  /**
-   * Gets or sets the name
-   */
-  name: string;
+  skill: string;
 }
 
 /**

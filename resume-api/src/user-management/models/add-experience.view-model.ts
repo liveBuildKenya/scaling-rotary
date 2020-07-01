@@ -2,6 +2,7 @@
  * Represents an add user experience view model
  */
 export interface AddExperienceViewModel {
+    dateCreated: Date;
 
     /**
      * Gets or sets the user identifier

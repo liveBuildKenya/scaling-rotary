@@ -1,0 +1,97 @@
+@import '../../../../variables.scss';
+
+#header{
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  width: 100%;
+  background: white;
+  z-index: 9999;
+}
+
+#personal-details {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  z-index: 9999;
+  #personal-contacts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    margin-top: 1rem;
+    span {
+      margin-top: .6rem;
+    }
+    .contact-link {
+      font-size: 1.2rem;
+      margin-right: 1.2rem;
+      padding: .6rem;
+      border-radius: 50%;
+    }
+    span {
+      #phone {
+        color: $phone-green;
+      }
+      #facebook {
+        color: $facebook-blue;
+      }
+    }
+  }
+}
+
+#introduction-container{
+  #introduction-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    #introduction-contact{
+      width: 50%;
+    }
+    #video-wrapper{
+      width: 50%;
+      video {
+        max-width: 90%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #introduction-container{
+    #introduction-wrapper {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 100%;
+      #introduction-contact{
+        width: 100%;
+      }
+      #video-wrapper{
+        width: 100%;
+        video {
+          max-width: 90%;
+        }
+      }
+    }
+  }
+}
+
+#skills {
+  #skills-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+    padding-inline-start: 0;
+    li {
+      background-color: darken($color: #fff, $amount: 20);
+      border-radius: .6rem;
+      padding: .8rem;
+      margin-top: .2rem;
+      margin-right: .2rem;
+    }
+  }
+}

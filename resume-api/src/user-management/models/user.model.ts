@@ -1,20 +1,26 @@
-import * as mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 import { BaseModel } from 'src/shared/models/base.model';
-import { ExperienceSchema } from './experience.model';
-import { EducationSchema } from './education.model';
-import { ProjectSchema } from './project.model';
+import { ExperienceSchema, ExperienceModel } from './experience.model';
+import { EducationSchema, EducationModel } from './education.model';
+import { ProjectSchema, ProjectModel } from './project.model';
+import { ContactSchema, ContactModel } from './contact.model';
+import { IntroductionSchema, IntroductionModel } from './introduction.model';
+import { SkillSchema, SkillModel } from './skill.model';
+import { LanguageSchema, LanguageModel } from './language.model';
 
 /**
  * Represents the user schema
  */
-export const UserSchema = new mongoose.Schema({
+export const UserSchema = new Schema({
     name: String,
     email: String,
     password: String,
-    contacts: [{ contactType: String, contactValue: String}],
-    introduction: { videoId: String, posterId: String, valueStatement: String, languages: [{ name: String, level: Number }] },
+    contacts: [ContactSchema],
+    introduction: IntroductionSchema,
+    languages: [LanguageSchema],
+    valueStatement: String,
     experience: [ExperienceSchema],
-    skills: [{name: String}],
+    skills: [SkillSchema],
     education: [EducationSchema],
     projects: [ProjectSchema],
     dateCreated: { type: Date },
@@ -25,19 +31,15 @@ export const UserSchema = new mongoose.Schema({
  * Represents a user model
  */
 export interface UserModel extends BaseModel {
-    
-    /**
-     * Gets or sets the name
-     */
     name: string;
-
-    /**
-     * Gets or sets the email
-     */
     email: string;
-
-    /**
-     * Gets or sets the password
-     */
     password: string; 
+    contacts: Array<ContactModel>;
+    introduction: IntroductionModel;
+    languages: Array<LanguageModel>;
+    valueStatement: string;
+    experience: Array<ExperienceModel>;
+    skills: Array<SkillModel>;
+    education: Array<EducationModel>;
+    projects: Array<ProjectModel>;
 }

@@ -33,7 +33,7 @@ export class ResumeEditValueStatementComponent implements OnInit {
     (await this.userService.getUserById(this.route.parent.snapshot.paramMap.get('id'))).subscribe(
       (response: any) => {
         this.editValueStatementForm = this.formBuilder.group({
-          valueStatement: [response.result.introduction.valueStatement, [Validators.required]]
+          valueStatement: [response.result.valueStatement, [Validators.required]]
         });
       }
     );

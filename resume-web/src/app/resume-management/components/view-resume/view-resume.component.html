@@ -1,34 +1,50 @@
+<div id="header">
+  <h1 class="text-center">{{user?.name}}</h1>
+</div>
 <div id="personal-details">
-  <h1>{{user?.name}}</h1>
+  <button class="primary-button" routerLink='contact/add'> Add Contact</button>
   <div id="personal-contacts">
-    <a href="mailto:{{user?.email}}" title="Mail me: {{user?.email}}">
+    <a class="contact-link" href="mailto:{{user?.email}}" title="Mail me: {{user?.email}}">
       <fa-icon [icon]="faEnvelope"></fa-icon>
     </a>
     <span *ngFor="let contact of user?.contacts">
-      <a *ngIf="contact.contactType === 'phone'" href="tel:contact.contactValue"><fa-icon [icon]="faPhone"></fa-icon></a>
-      <a *ngIf="contact.contactType === 'facebook'" href="contact.contactValue" target="_blank"><fa-icon [icon]="faFacebookF"></fa-icon></a>
-      <a *ngIf="contact.contactType === 'twitter'" href="contact.contactValue" target="_blank"><fa-icon [icon]="faTwitter"></fa-icon></a>
-      <a *ngIf="contact.contactType === 'linkedIn'" href="contact.contactValue" target="_blank"><fa-icon [icon]="faLinkedIn"></fa-icon></a>
+      <a id="phone" class="contact-link" *ngIf="contact.contactType === 'phone'" href="tel:{{contact.contactValue}}"><fa-icon [icon]="faPhone"></fa-icon></a>
+      <a id="facebook" class="contact-link" *ngIf="contact.contactType === 'facebook'" href="{{contact.contactValue}}" target="_blank"><fa-icon [icon]="faFacebookF"></fa-icon></a>
+      <a class="contact-link" *ngIf="contact.contactType === 'twitter'" href="{{contact.contactValue}}" target="_blank"><fa-icon [icon]="faTwitter"></fa-icon></a>
+      <a class="contact-link" *ngIf="contact.contactType === 'linkedIn'" href="{{contact.contactValue}}" target="_blank"><fa-icon [icon]="faLinkedIn"></fa-icon></a>
     </span>
-    <button class="primary-button" routerLink='contact/add'> Add Contact</button>
   </div>
 </div>
-<div id="introduction">
+<div id="introduction-container">
   <h2>Introduction</h2>
-  <video controls src="{{introductionVideoUrl}}">
-  </video>
-  <h3>Upload video</h3>
-  <app-file-upload [resumeSection]="resumeSections.INTRODUCTION" [uploadType]="uploadType.VIDEO" [userIdentifier]="user?._id"></app-file-upload>
-  <h3>Languages</h3>
-  <a routerLink="language/add">Add Language</a>
-  <span *ngFor="let language of user?.introduction.languages">{{language.name}}</span>
-  <p>{{user?.introduction.valueStatement}}</p>
-  <a routerLink="statement/edit">Edit Value Statement</a>
+  <div id="introduction-wrapper">
+    <div id="introduction-contact">
+      <div id="value-statement">
+        <p>{{user?.valueStatement}}</p>
+        <a routerLink="statement/edit">Edit Value Statement</a>
+      </div>
+      <div id="languages">
+        <h3>Languages</h3>
+        <a routerLink="language/add">Add Language</a>
+        <ul id="user-languages">
+          <li *ngFor="let language of user?.languages">{{language.language}}</li>
+        </ul>
+      </div>
+    </div>
+    <div id="video-wrapper">
+      <video controls src="{{introductionVideoUrl}}">
+      </video>
+      <h3>Upload video</h3>
+      <app-file-upload [resumeSection]="resumeSections.INTRODUCTION" [uploadType]="uploadType.VIDEO" [userIdentifier]="user?._id"></app-file-upload>
+    </div>
+  </div>
 </div>
 <div id="skills">
   <h2>Skills</h2>
   <a routerLink='skill/add'>Add Skill</a>
-  <span *ngFor="let skill of user?.skills">{{skill.name}}</span>
+  <ul id="skills-container">
+    <li *ngFor="let userSkill of user?.skills">{{userSkill.skill}}</li>
+  </ul>
 </div>
 <div id="experience">
   <h2>Experience</h2>
