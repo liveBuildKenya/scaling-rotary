@@ -30,7 +30,7 @@
     "@nestjs/platform-express": "^7.0.0",
     "bcrypt": "^4.0.1",
     "mongo-gridfs": "^1.1.0",
-    "mongoose": "^5.9.15",
+    "mongoose": "^5.13.15",
     "multer-gridfs-storage": "^4.1.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
